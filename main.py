@@ -9,7 +9,7 @@ import tempfile
 import os
 st.set_page_config(layout="wide")
 # Load the YOLO model
-model = YOLO(r'C:\Users\gaura\Desktop\iPython\Face_Recog\runs\classify\train3\weights\best.pt')
+model = YOLO(r'best.pt')
 
 def annotate_and_plot(image_path, model):
     st.write(image_path)
@@ -17,7 +17,7 @@ def annotate_and_plot(image_path, model):
     image = Image.open(image_path)
 
     # Detect faces
-    obj = DeepFace.extract_faces(img_path=image_path, detector_backend='retinaface')
+    faces = DeepFace.extract_faces(img_path=image_path, detector_backend='retinaface')
 
     # Create figure and axes
     fig, ax = plt.subplots()
@@ -25,21 +25,21 @@ def annotate_and_plot(image_path, model):
     # Display the image
     ax.imshow(image)
 
-    # Annotate each detected face
-    for i, face in enumerate(obj):
+    # Process each detected face
+    for face in faces:
         # Get bounding box coordinates
         x, y, w, h = face['facial_area']['x'], face['facial_area']['y'], face['facial_area']['w'], face['facial_area']['h']
 
-        # Create a rectangle patch
-        rect = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='r', facecolor='none')
-
-        # Add the patch to the Axes
-        ax.add_patch(rect)
+        # Crop the face from the image
+        face_image = image.crop((x, y, x + w, y + h))
+        face_image.save("temp_face.jpg")  # Save cropped face image
 
         # Predict class using the model
-        results = model(image_path)
+        results = model("temp_face.jpg")
 
         # Get the highest probability class name
+        class_name = "Unknown"
+        conf_ = 0
         for r in results:
             probs = r.probs
             conf_ = probs.top1conf.item()
@@ -47,17 +47,24 @@ def annotate_and_plot(image_path, model):
             class_name = model.names[max_prob_index]
             print(f"Predicted class: {class_name}: {conf_:.2f}")
 
+        # Create a rectangle patch
+        rect = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='r', facecolor='none')
+
+        # Add the patch to the Axes
+        ax.add_patch(rect)
+
         # Add text label
-        ax.text(x, y-10, f'{class_name}: {conf_:.2f}', color='r')
+        ax.text(x, y - 10, f'{class_name}: {conf_:.2f}', color='r')
 
     return fig
+
 
 def main():
     st.title('Image Upload and Recognize')
     
     # Display sample images
     st.subheader('Sample Images')
-    sample_images = [r"C:\Users\gaura\Downloads\image (1).jpg", r"C:\Users\gaura\Desktop\iPython\Face_Recog\image-retrieval\dataset\pa\Akshay\akshaykumar-20240804-0007.jpg"]  # Update with your sample image paths
+    sample_images = [r"image (1).jpg", r"akshaykumar-20240804-0007.jpg"]  # Update with your sample image paths
 
     # for img_path in sample_images:
     col1, col2 = st.columns([1,2])
