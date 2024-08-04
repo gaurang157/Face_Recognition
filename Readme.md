@@ -56,7 +56,7 @@ gdown 11UYuNj0cn2x56xZRHWdAQD09iuFf6r_f
 - **Purpose:** Start the Streamlit app.
 - **Command:**
 ```bash
-streamlit run app.py
+streamlit run main.py
 ```
 **Note:** Replace `app.py` with the actual name of your Streamlit app file.
 
