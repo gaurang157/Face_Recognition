@@ -2,6 +2,8 @@
 
 This is a Streamlit application for uploading images, detecting faces, and annotating them with predictions. The application uses the YOLO model for classification and DeepFace for face detection.
 
+![Recognition App](https://raw.githubusercontent.com/gaurang157/Face_Recognition/main/Screenshot%20(5354).png)
+
 ## Features
 
 - **Upload Image**: Allows users to upload images in PNG or JPG format.
