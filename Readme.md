@@ -16,7 +16,8 @@ This is a Streamlit application for uploading images, detecting faces, and annot
 1. **Clone the Repository**
 
 ```bash
-   git clone https://github.com/gaurang157/Face_Recognition.git
+git clone https://github.com/gaurang157/Face_Recognition.git
+cd Face_Recognition
 ```
 
 This guide outlines the steps to set up a Streamlit application, including creating a virtual environment, installing dependencies, and running the application.
