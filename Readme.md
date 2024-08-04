@@ -16,8 +16,7 @@ This is a Streamlit application for uploading images, detecting faces, and annot
 1. **Clone the Repository**
 
 ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/gaurang157/Face_Recognition.git
 ```
 
 This guide outlines the steps to set up a Streamlit application, including creating a virtual environment, installing dependencies, and running the application.
@@ -60,12 +59,5 @@ gdown 11UYuNj0cn2x56xZRHWdAQD09iuFf6r_f
 ```bash
 streamlit run main.py
 ```
-**Note:** Replace `app.py` with the actual name of your Streamlit app file.
 
 This command will launch your Streamlit application in your browser. 
-
-**Further Steps:**
-
-- Replace `app.py` with the actual name of your Streamlit file.
-- Create a `requirements.txt` file with a list of your project's dependencies.
-- Build your Streamlit app within the `app.py` file.
